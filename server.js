@@ -6,7 +6,11 @@ const mysql = require('mysql2');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: [
+        'https://ชื่อเว็บ-vercel.vercel.app'
+    ]
+}));
 app.use(express.json());
 
 const port = process.env.PORT || 5000;
