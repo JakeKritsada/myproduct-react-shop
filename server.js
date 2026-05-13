@@ -17,9 +17,7 @@ const pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    ssl: {
-        minVersion: 'TLSv1.2'
-    }
+    ssl: {}
 });
 
 // TEST CONNECTION
@@ -39,15 +37,24 @@ app.get('/', (req, res) => {
 
 // PRODUCT TYPES
 app.get('/api/product_types', (req, res) => {
+
+    console.log('CALL API product_types');
+
     pool.query(
         'SELECT * FROM product_types',
         (err, results) => {
+
             if (err) {
+
+                console.log('SQL ERROR:', err);
+
                 return res.json({
                     result: false,
                     message: err.message
                 });
             }
+
+            console.log(results);
 
             res.json({
                 result: true,
